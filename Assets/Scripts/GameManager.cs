@@ -4,6 +4,7 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour {
 
+	public int targetScore = 10;
 	public Text p1ScoreUI;
 	public Text p2ScoreUI;
 	public Text winnerUI;
