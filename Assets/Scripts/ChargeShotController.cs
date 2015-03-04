@@ -35,7 +35,7 @@ public class ChargeShotController : MonoBehaviour {
 	}
 	
 	void OnTriggerEnter2D ( Collider2D collider ) {
-		if (collider.tag == "Player" && collider.name != transform.parent.name) {
+		if (collider.tag == "Player" && transform.parent == null){
 			//Debug.Log("collider name: " + collider.name + " parent name: " + transform.parent.name);
 			Destroy (gameObject);
 			_GM.SendMessage("Score", collider.name);
