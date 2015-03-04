@@ -12,6 +12,10 @@ public class BulletController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		// Game state check
+		if (GameManager.GameOver())
+			return;
+
 		if ( Mathf.Abs(transform.position.x) > 10f || Mathf.Abs(transform.position.y) > 10f )
 			Destroy (gameObject);
 	}

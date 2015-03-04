@@ -28,6 +28,11 @@ public class PlayerController : MonoBehaviour {
 	}
 	
 	void Update () {
+
+		// Game state check
+		if (GameManager.GameOver())
+			return;
+
 		// Attacking
 		Vector3 bulletPos;
 		
@@ -102,6 +107,10 @@ public class PlayerController : MonoBehaviour {
 
 
 	void FixedUpdate () {
+		// Game state check
+		if (GameManager.GameOver())
+			return;
+
 		// Movement
 		if (Input.GetKey (up))
 			rigidbody2D.AddForce( new Vector2(0, force) );
