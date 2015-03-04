@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour {
 	public KeyCode up;
 	public KeyCode down;
 	public KeyCode fire;
+	public GameObject bullet;
 
 
 	// Use this for initialization
@@ -14,16 +15,26 @@ public class PlayerController : MonoBehaviour {
 	
 	}
 	
-	// Update is called once per frame
 	void Update () {
 
+
+
+	}
+
+
+	void FixedUpdate () {
+		
 		// Movement
-		if (Input.GetKey ("up")) {
+
+		if (Input.GetKey ("up"))
 			rigidbody2D.AddForce( new Vector2(0, force) );
-		}
-		else if (Input.GetKey ("down")) {
+		else if (Input.GetKey ("down"))
 			rigidbody2D.AddForce( new Vector2(0, -1*force) );
-		}
+
+
+		// Attacking
+		//bullet.GetComponent<SpriteRenderer> ().color = new Color (255f, 0f, 0f);
+
 
 	}
 }
