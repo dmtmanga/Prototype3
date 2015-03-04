@@ -12,14 +12,17 @@ public class BulletController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (transform.position.x > 10f || transform.position.y > 10f)
+		if ( Mathf.Abs(transform.position.x) > 10f || Mathf.Abs(transform.position.y) > 10f )
 			Destroy (gameObject);
 	}
 
 	void OnTriggerEnter2D ( Collider2D collider ) {
 		if (collider.tag == "Player") {
 			Destroy (gameObject);
-			_GM.SendMessage("Score", collider.name);
+			_GM.SendMessage ("Score", collider.name);
+		} 
+		else if (collider.tag == "ChargeShot") {
+			Destroy (gameObject);
 		}
 	}
 	
