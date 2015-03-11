@@ -75,14 +75,15 @@ public class PlayerController : MonoBehaviour {
 		else if (Input.GetKeyUp (shoot)) {
 			if (_charged){
 				if (name == "P1"){
-					_bullet.rigidbody2D.velocity = new Vector2(chargeShotSpeed, rigidbody2D.velocity.y);
+					_bullet.rigidbody2D.velocity = new Vector2(chargeShotSpeed, 0.8f *  rigidbody2D.velocity.y);
 					_bullet.transform.parent = null;
 				}
 				else if (name == "P2"){
-					_bullet.rigidbody2D.velocity = new Vector2(-1*chargeShotSpeed, rigidbody2D.velocity.y);
+					_bullet.rigidbody2D.velocity = new Vector2(-1*chargeShotSpeed, 0.8f * rigidbody2D.velocity.y);	
 					_bullet.transform.parent = null;
 				}
 				_charged = false;
+				particles.particleSystem.enableEmission = false;
 			}
 			else if(_charging) {
 				foreach (Transform child in transform)
@@ -105,6 +106,7 @@ public class PlayerController : MonoBehaviour {
 			}
 			_charging = false;
 			_timeCharging = 0f;
+			particles.particleSystem.enableEmission = false;
 		}
 	}
 
