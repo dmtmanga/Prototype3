@@ -3,7 +3,8 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour {
 
-	public float force = 5f;
+	public float moveSpeed = 5f;
+	public float friction = 0.03f;
 	public float shotSpeed = 10f;
 	public float chargeShotSpeed = 4f;
 	public float chargeTime = 3f;
@@ -113,9 +114,13 @@ public class PlayerController : MonoBehaviour {
 
 		// Movement
 		if (Input.GetKey (up))
-			rigidbody2D.AddForce( new Vector2(0, force) );
+			//rigidbody2D.AddForce( new Vector2(0, force) );
+			rigidbody2D.velocity = new Vector2 (0, moveSpeed);
 		else if (Input.GetKey (down))
-			rigidbody2D.AddForce( new Vector2(0, -1*force) );
+			//rigidbody2D.AddForce( new Vector2(0, -1*force) );
+			rigidbody2D.velocity = new Vector2 (0, -1 * moveSpeed);
+		else
+			rigidbody2D.velocity = rigidbody2D.velocity * (1 - friction);
 	}
 
 	

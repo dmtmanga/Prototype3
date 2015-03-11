@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour {
 	void Update () {
 		// Game state check
 		if (_gameEnd) {
-			if (Input.anyKey) {
+			if (Input.GetKey(KeyCode.Escape)) {
 				_gameEnd = false;
 				ResetScore();
 				Application.LoadLevel("MainLevel");
@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour {
 
 	void Win( string player ) {
 		Time.timeScale = 0.0f;
-		winnerUI.text = player + " Wins!\nPress Any Key to Replay.";
+		winnerUI.text = player + " Wins!\nPress Esc to Play Again.";
 		winnerUI.enabled = true;
 		_gameEnd = true;
 

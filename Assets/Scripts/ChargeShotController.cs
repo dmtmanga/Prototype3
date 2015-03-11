@@ -7,6 +7,8 @@ public class ChargeShotController : MonoBehaviour {
 
 	private GameObject _GM;
 	private GameObject _otherPlayer;
+
+
 	
 	// Use this for initialization
 	void Start () {
@@ -30,12 +32,12 @@ public class ChargeShotController : MonoBehaviour {
 		if (Mathf.Abs(transform.position.x) > 10f || Mathf.Abs(transform.position.y) > 10f)
 			Destroy (gameObject);
 
+
 		// Slight Homing
 		if (_otherPlayer.transform.position.y > transform.position.y)
-			rigidbody2D.AddForce( new Vector2(0f, homingForce) );
+			rigidbody2D.AddForce (new Vector2 (0f, homingForce));
 		else if (_otherPlayer.transform.position.y < transform.position.y)
-			rigidbody2D.AddForce( new Vector2(0f, -1*homingForce) );
-
+			rigidbody2D.AddForce (new Vector2 (0f, -1 * homingForce));
 	}
 	
 	void OnTriggerEnter2D ( Collider2D collider ) {
