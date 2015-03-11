@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour {
 	public Text p1ScoreUI;
 	public Text p2ScoreUI;
 	public Text winnerUI;
+	public Text fpsUI;
 
 	private int _p1Score = 0;
 	private int _p2Score = 0;
@@ -35,14 +36,17 @@ public class GameManager : MonoBehaviour {
 		p1ScoreUI.text = _p1Score.ToString ();
 		p2ScoreUI.text = _p2Score.ToString ();
 
-		if (_p1Score >= 10) {
-			_p1Score =10;
+		if (_p1Score >= targetScore) {
+			_p1Score = targetScore;
 			Win ("P1");
 		}
-		else if (_p2Score >= 10) {
-			_p2Score =10;
+		else if (_p2Score >= targetScore) {
+			_p2Score = targetScore;
 			Win ("P2");
 		}
+
+		int fps = (int)(1 / Time.deltaTime);
+		fpsUI.text = fps.ToString ();
 	}
 
 	void Score ( string player ) {

@@ -3,11 +3,12 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour {
 
-	public float moveSpeed = 5f;
+	public float moveSpeed = 6f;
 	public float friction = 0.03f;
-	public float shotSpeed = 10f;
-	public float chargeShotSpeed = 4f;
-	public float chargeTime = 3f;
+	public float shotSpeed = 12f;
+	public float chargeShotSpeed = 5f;
+	public float chargeTime = 1.2f; // time required to reach full charge
+	public float maxChargedTime = 3f; // max time player can hold charge
 	// Keys
 	public KeyCode up;
 	public KeyCode down;
@@ -20,7 +21,8 @@ public class PlayerController : MonoBehaviour {
 	private GameObject _bullet;
 	private bool _charged = false;
 	private bool _charging = false;
-	private float _timeCharged = 0f;
+	private float _timeCharging = 0f;  // time spent charging
+	//private float _timeCharged = 0f; // time spent holding a charge
 
 
 	// Use this for initialization
@@ -37,7 +39,7 @@ public class PlayerController : MonoBehaviour {
 		// Attacking
 		Vector3 bulletPos;
 		
-		particles.particleSystem.enableEmission = (_charging && _timeCharged >= chargeTime/3);
+		particles.particleSystem.enableEmission = (_charging && _timeCharging >= chargeTime/3);
 
 		if (Input.GetKeyDown(shoot)){
 			if (name == "P1"){
@@ -73,11 +75,11 @@ public class PlayerController : MonoBehaviour {
 		else if (Input.GetKeyUp (shoot)) {
 			if (_charged){
 				if (name == "P1"){
-					_bullet.rigidbody2D.velocity = new Vector2(chargeShotSpeed, 0f);
+					_bullet.rigidbody2D.velocity = new Vector2(chargeShotSpeed, rigidbody2D.velocity.y);
 					_bullet.transform.parent = null;
 				}
 				else if (name == "P2"){
-					_bullet.rigidbody2D.velocity = new Vector2(-1*chargeShotSpeed, 0f);
+					_bullet.rigidbody2D.velocity = new Vector2(-1*chargeShotSpeed, rigidbody2D.velocity.y);
 					_bullet.transform.parent = null;
 				}
 				_charged = false;
@@ -86,7 +88,7 @@ public class PlayerController : MonoBehaviour {
 				foreach (Transform child in transform)
 					if(child.tag != "Particles")
 						Destroy(child.gameObject);
-				if ( _timeCharged >= chargeTime/2){
+				if ( _timeCharging >= chargeTime/2){
 					if (name == "P1"){
 						bulletPos = new Vector3(transform.position.x + 0.5f, transform.position.y, 0f);
 						_bullet = (GameObject) Instantiate(bulletPrefab, bulletPos, new Quaternion());
@@ -102,7 +104,7 @@ public class PlayerController : MonoBehaviour {
 				}
 			}
 			_charging = false;
-			_timeCharged = 0f;
+			_timeCharging = 0f;
 		}
 	}
 
@@ -128,8 +130,8 @@ public class PlayerController : MonoBehaviour {
 		if (!_charging) {
 			_charging = true;
 		}
-		_timeCharged += Time.deltaTime;
-		return (_timeCharged >= chargeTime);
+		_timeCharging += Time.deltaTime;
+		return (_timeCharging >= chargeTime);
 	}
 
 }
